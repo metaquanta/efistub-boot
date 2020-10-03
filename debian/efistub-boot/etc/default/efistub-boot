@@ -1,0 +1,41 @@
+# If you change this file, run 'update-efistub'
+
+#LABEL="Debian - linux boot-stub"
+#KERNEL='\EFI\debian\vmlinuz'
+#INITRD='\EFI\debian\initrd.img'
+
+#ROOT=SOMEUUID
+#ROOTFS=btrfs
+
+#ESP=mmcblk0p1
+#ESP_DISK=mmcblk0
+#ESP_PART=1
+
+# mode-setting related
+#CMDLINE_LINUX="${CMDLINE_LINUX} quiet"
+#CMDLINE_LINUX="${CMDLINE_LINUX} nomodeset"
+#CMDLINE_LINUX="${CMDLINE_LINUX} i915.modeset=1"
+CMDLINE_LINUX="${CMDLINE_LINUX} i915.fastboot=1 video=1920x1080"
+
+# Possibly prevents some flicker during use 
+# ("kernel: i915 0000:00:02.0: [drm] *ERROR* CPU pipe A FIFO underrun")
+#CMDLINE_LINUX="${CMDLINE_LINUX} i915.enable_dc=0" # OR(AND?) // Doesn't work and taints.
+#CMDLINE_LINUX="${CMDLINE_LINUX} intel_idle.max_cstate=4"
+
+# Removes some keyboard-related warnings
+CMDLINE_LINUX="${CMDLINE_LINUX} i8042.nopnp i8042.unlock"
+# Removes some warnings re tpm ("tpm tpm0: tpm_try_transmit: send(): error -5", etc)
+CMDLINE_LINUX="${CMDLINE_LINUX} tpm_tis.interrupts=0"
+# DMAR/IOMMU breaks audio and suspend on Chell 
+CMDLINE_LINUX="${CMDLINE_LINUX} intel_iommu=off"
+# Removes warning re fb, but it also taints kernel :(
+# "[drm] Reducing the compressed framebuffer size. This may lead to less power savings than a non-reduced-size. Try to increase stolen memory size if available in BIOS."
+#CMDLINE_LINUX="${CMDLINE_LINUX} i915.enable_fbc=0"
+# GuC taints kernel :(
+#CMDLINE_LINUX="${CMDLINE_LINUX} i915.enable_guc=3"
+
+# Fuck hyperthreading
+CMDLINE_LINUX="${CMDLINE_LINUX} mitigations=auto,nosmt"
+
+# zswap
+CMDLINE_LINUX="${CMDLINE_LINUX} zswap.enabled=1 zswap.compressor=zstd zswap.zpool=z3fold"

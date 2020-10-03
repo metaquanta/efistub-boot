@@ -1,0 +1,2 @@
+#!/bin/sh
+cp /initrd.img /boot/efi/EFI/debian/

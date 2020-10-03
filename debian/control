@@ -1,0 +1,13 @@
+Source: efistub-boot
+Section: admin
+Priority: optional
+Maintainer: m <m@metaquanta.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.0
+Homepage: https://metaquanta.com/efistub-boot
+Rules-Requires-Root: no
+
+Package: efistub-boot
+Architecture: any
+Depends: efibootmgr, util-linux, ${misc:Depends}
+Description: setup native linux boot stub

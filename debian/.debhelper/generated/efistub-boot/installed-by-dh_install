@@ -1,0 +1,4 @@
+./initramfs/post-update.d/update-efistub-boot
+./kernel/postinst.d/zz-update-efistub-boot
+./default/efistub-boot
+./update-efistub

@@ -1,0 +1,2 @@
+#!/bin/sh
+cp /vmlinuz /boot/efi/EFI/debian/
