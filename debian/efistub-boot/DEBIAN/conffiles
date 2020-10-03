@@ -1,3 +1,0 @@
-/etc/default/efistub-boot
-/etc/initramfs/post-update.d/update-efistub-boot
-/etc/kernel/postinst.d/zz-update-efistub-boot
