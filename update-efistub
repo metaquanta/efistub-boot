@@ -27,7 +27,7 @@ fi
 
 echo "  creating '${LABEL}'..."
 
-echo efibootmgr -c --disk /dev/${ESP_DISK} --part ${ESP_PART} \
+efibootmgr -c --disk /dev/${ESP_DISK} --part ${ESP_PART} \
     -L "${LABEL}" -l "${KERNEL}" \
     -u " root=${ROOT} ro rootfstype=${ROOTFS} initrd=${INITRD} ${CMDLINE_LINUX}"\
     > /dev/null
