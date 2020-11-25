@@ -12,7 +12,6 @@ fi
 
 SRC="/boot/vmlinuz-${1}"
 if [ -n "$2" ]; then
-	echo "2: $2"
 	SRC="$2"
 fi
 
