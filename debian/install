@@ -1,4 +1,4 @@
-initramfs/post-update.d/update-efistub-boot /etc/initramfs/post-update.d
+initramfs/post-update.d/zz-update-efistub-boot /etc/initramfs/post-update.d
 kernel/postinst.d/zz-update-efistub-boot /etc/kernel/postinst.d
 default/efistub-boot /etc/default
 update-efistub /usr/sbin
