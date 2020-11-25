@@ -9,5 +9,5 @@ Rules-Requires-Root: no
 
 Package: efistub-boot
 Architecture: any
-Depends: efibootmgr, util-linux, ${misc:Depends}
+Depends: efibootmgr, util-linux, linux-base, initramfs-tools, coreutils, bash, sed ${misc:Depends}
 Description: setup native linux boot stub
