@@ -1,15 +1,10 @@
 #!/usr/bin/env bash
 LABEL="Debian - linux boot-stub"
-KERNEL='\EFI\debian\vmlinuz'
-INITRD='\EFI\debian\initrd.img'
+KERNEL_EFI='\EFI\debian\vmlinuz'
+INITRD_EFI='\EFI\debian\initrd.img'
 
-ROOT="$(findmnt -kno SOURCE /)"
-if test "lvm" != "$(lsblk ${ROOT} -no TYPE)"; then
-  ROOT="UUID=$(findmnt -kno UUID /)"
-fi
+ROOT="$(findmnt -kno UUID /)"
 ROOTFS="$(findmnt -kno FSTYPE /)"
-
-echo "Found root: '${ROOT}' (${ROOTFS})"
 
 ESP="$(findmnt -kno SOURCE /boot/efi | sed s-/dev/--)"
 ESP_DISK="$(lsblk /dev/${ESP} -no pkname)"
@@ -17,7 +12,7 @@ ESP_PART="$(cat /sys/class/block/${ESP}/partition)"
 
 . /etc/default/efistub-boot
 
-echo "Found ESP: '${ESP_DISK}', part ${ESP_PART}"
+echo "Using partition ${ESP_PART} of ${ESP_DISK} as ESP"
 
 OLD_ENTRY=$(efibootmgr | grep "* ${LABEL}$" | cut -c 5-8)
 if test -n "${OLD_ENTRY}"; then
@@ -25,9 +20,9 @@ if test -n "${OLD_ENTRY}"; then
   efibootmgr -B -b $OLD_ENTRY > /dev/null
 fi
 
-echo "  creating '${LABEL}'..."
+echo "  creating entry - '${LABEL}'"
 
 efibootmgr -c --disk /dev/${ESP_DISK} --part ${ESP_PART} \
-    -L "${LABEL}" -l "${KERNEL}" \
-    -u " root=${ROOT} ro rootfstype=${ROOTFS} initrd=${INITRD} ${CMDLINE_LINUX}"\
+    -L "${LABEL}" -l "${KERNEL_EFI}" \
+    -u " root=UUID=${ROOT} ro rootfstype=${ROOTFS} initrd=${INITRD_EFI} ${CMDLINE_LINUX}"\
     > /dev/null

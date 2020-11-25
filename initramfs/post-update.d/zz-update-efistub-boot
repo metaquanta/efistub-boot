@@ -1,2 +1,35 @@
 #!/bin/sh
-cp /initrd.img /boot/efi/EFI/debian/
+
+KERNEL_VERSION="$(linux-version list | tail -n 1)"
+INITRD='/boot/efi/EFI/debian/initrd.img'
+
+. /etc/default/efistub-boot
+
+if [ "$1" != "$KERNEL_VERSION" ]; then
+	echo "efistub-boot: $1 ≠ $KERNEL_VERSION! skipping."
+	exit 0
+fi
+
+SRC="/boot/initrd.img-${1}"
+if [ -n "$2" ]; then
+	echo "2: $2"
+	SRC="$2"
+fi
+
+if [ ! -s "$SRC" ]; then
+	echo "efistub-boot: $SRC does not exist!"
+	exit 1
+fi
+
+if [ -s "$INITRD" ]; then
+	cmp -s "$INITRD" "$SRC"
+
+	if [ $? -eq 0 ]; then
+		echo "efistub-boot: $SRC already installed to ESP. skipping."
+		exit 0
+	fi
+fi
+
+cp "$SRC" "$INITRD"
+
+echo "efistub-boot: installed $SRC to ESP."

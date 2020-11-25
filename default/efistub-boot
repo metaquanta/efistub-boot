@@ -1,8 +1,12 @@
 # If you change this file, run 'update-efistub'
 
 #LABEL="Debian - linux boot-stub"
-#KERNEL='\EFI\debian\vmlinuz'
-#INITRD='\EFI\debian\initrd.img'
+#KERNEL_EFI='\EFI\debian\vmlinuz'
+#INITRD_EFI='\EFI\debian\initrd.img'
+#KERNEL='/boot/efi/EFI/debian/vmlinuz'
+#INITRD='/boot/efi/EFI/debian/initrd.img'
+
+#KERNEL_VERSION=<newest installed kernel>
 
 #ROOT=UUID=<some uuid>
 #ROOT=/dev/mapper/llvm_lv
@@ -13,7 +17,5 @@
 #ESP_PART=1
 
 CMDLINE_LINUX=" "
-# For HP Chell
-#CMDLINE_LINUX="${CMDLINE_LINUX} video=1920x1080 i8042.nopnp i8042.unlock intel_iommu=off"
-#CMDLINE_LINUX="${CMDLINE_LINUX} tpm_tis.interrupts=0 mitigations=auto,nosmt"
+#CMDLINE_LINUX="${CMDLINE_LINUX} mitigations=auto,nosmt"
 #CMDLINE_LINUX="${CMDLINE_LINUX} zswap.enabled=1 zswap.compressor=zstd zswap.zpool=z3fold"
