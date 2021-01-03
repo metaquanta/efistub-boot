@@ -1,9 +1,13 @@
 #!/bin/sh
 
 KERNEL_VERSION="$(linux-version list | tail -n 1)"
-INITRD='/boot/efi/EFI/debian/initrd.img'
+SUFFIX=$(hostname)
 
 . /etc/default/efistub-boot
+
+if [ ! -n "$INITRD" ]; then
+    INITRD="/boot/efi/EFI/debian/initrd-${SUFFIX}.img"
+fi
 
 if [ "$1" != "$KERNEL_VERSION" ]; then
 	echo "efistub-boot: $1 ≠ $KERNEL_VERSION! skipping."

@@ -1,9 +1,13 @@
 #!/bin/sh
 
 KERNEL_VERSION="$(linux-version list | tail -n 1)"
-KERNEL='/boot/efi/EFI/debian/vmlinuz'
+SUFFIX=$(hostname)
 
 . /etc/default/efistub-boot
+
+if [ ! -n "$KERNEL" ]; then
+    KERNEL="/boot/efi/EFI/debian/vmlinuz-${SUFFIX}"
+fi
 
 if [ "$1" != "$KERNEL_VERSION" ]; then
 	echo "efistub-boot: $1 ≠ $KERNEL_VERSION! skipping."

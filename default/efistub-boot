@@ -1,14 +1,15 @@
 # If you change this file, run 'update-efistub'
 
-#LABEL="Debian - linux boot-stub"
-#KERNEL_EFI='\EFI\debian\vmlinuz'
-#INITRD_EFI='\EFI\debian\initrd.img'
-#KERNEL='/boot/efi/EFI/debian/vmlinuz'
-#INITRD='/boot/efi/EFI/debian/initrd.img'
+#LABEL="Debian - linux boot-stub ${SUFFIX}"
+#SUFFIX=<hostname>
+#KERNEL_EFI='\EFI\debian\vmlinuz-${SUFFIX}'
+#INITRD_EFI='\EFI\debian\initrd-${SUFFIX}.img'
+#KERNEL='/boot/efi/EFI/debian/vmlinuz-${SUFFIX}'
+#INITRD='/boot/efi/EFI/debian/initrd-${SUFFIX}.img'
 
 #KERNEL_VERSION=<newest installed kernel>
 
-#ROOT=UUID=<some uuid>
+#ROOT=UUID=<file system uuid>
 #ROOT=/dev/mapper/llvm_lv
 #ROOTFS=btrfs
 

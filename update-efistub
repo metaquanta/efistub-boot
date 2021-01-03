@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-LABEL="Debian - linux boot-stub"
-KERNEL_EFI='\EFI\debian\vmlinuz'
-INITRD_EFI='\EFI\debian\initrd.img'
 
 ROOT="$(findmnt -kno UUID /)"
 ROOTFS="$(findmnt -kno FSTYPE /)"
@@ -10,7 +7,19 @@ ESP="$(findmnt -kno SOURCE /boot/efi | sed s-/dev/--)"
 ESP_DISK="$(lsblk /dev/${ESP} -no pkname)"
 ESP_PART="$(cat /sys/class/block/${ESP}/partition)"
 
+SUFFIX=$(hostname)
+
 . /etc/default/efistub-boot
+
+if [ ! -n "$LABEL" ]; then
+    LABEL="Debian - linux boot-stub (${SUFFIX})"
+fi
+if [ ! -n "$KERNEL_EFI" ]; then
+    KERNEL_EFI="\EFI\debian\vmlinuz-${SUFFIX}"
+fi
+if [ ! -n "$INITRD_EFI" ]; then
+    INITRD_EFI="\EFI\debian\initrd-${SUFFIX}.img"
+fi
 
 echo "Using partition ${ESP_PART} of ${ESP_DISK} as ESP"
 
