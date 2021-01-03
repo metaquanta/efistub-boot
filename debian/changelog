@@ -1,4 +1,10 @@
-efistub-boot (0.2) UNRELEASED; urgency=medium
+efistub-boot (0.3) UNRELEASED; urgency=medium
+
+  * Added a suffix to files in ESP
+
+ -- m <m@metaquanta.com>  Sat, 02 Jan 2021 20:23:16 -0500
+
+efistub-boot (0.2) unstable; urgency=medium
 
   * Ignore links in root and honor version passed to hook scripts
   * Prefix hook scripts with zz- as required for bootloaders
