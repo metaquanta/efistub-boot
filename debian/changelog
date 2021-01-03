@@ -1,8 +1,9 @@
 efistub-boot (0.3) unstable; urgency=medium
 
   * Added a suffix to files in ESP
+  * Run update hooks in update-efibootstub
 
- -- m <m@metaquanta.com>  Sat, 02 Jan 2021 20:23:16 -0500
+ -- m <m@metaquanta.com>  Sat, 02 Jan 2021 21:10:16 -0500
 
 efistub-boot (0.2) unstable; urgency=medium
 
