@@ -35,4 +35,9 @@ fi
 
 cp "$SRC" "$INITRD"
 
+if [ $? != "0" ]; then
+    echo "copy $SRC to ESP failed!"
+    exit 1
+fi
+
 echo "efistub-boot: installed $SRC to ESP."

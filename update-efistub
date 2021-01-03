@@ -8,6 +8,7 @@ ESP_DISK="$(lsblk /dev/${ESP} -no pkname)"
 ESP_PART="$(cat /sys/class/block/${ESP}/partition)"
 
 SUFFIX=$(hostname)
+KERNEL_VERSION="$(uname -r)"
 
 . /etc/default/efistub-boot
 
@@ -23,10 +24,17 @@ fi
 
 echo "Using partition ${ESP_PART} of ${ESP_DISK} as ESP"
 
+/etc/kernel/postinst.d/zz-update-efistub-boot ${KERNEL_VERSION}
+/etc/initramfs/post-update.d/zz-update-efistub-boot ${KERNEL_VERSION}
+
 OLD_ENTRY=$(efibootmgr | grep "* ${LABEL}$" | cut -c 5-8)
 if test -n "${OLD_ENTRY}"; then
   echo "  deleting boot${OLD_ENTRY}..."
   efibootmgr -B -b $OLD_ENTRY > /dev/null
+  if [ $? != "0" ]; then
+      echo "failed to update efi vars!"
+      exit 1
+  fi
 fi
 
 echo "  creating entry - '${LABEL}'"
