@@ -1,4 +1,4 @@
-efistub-boot (0.3) UNRELEASED; urgency=medium
+efistub-boot (0.3) unstable; urgency=medium
 
   * Added a suffix to files in ESP
 
